@@ -64,7 +64,7 @@ namespace MartingaleBot
 
                 startButton.Enabled = false;
                 colourCombo.Enabled = false;
-                startAmountTextbox.Enabled = false;
+                startAmountNumeric.Enabled = false;
                 //browser.Enabled = false;
 
                 initializeElements();
@@ -164,6 +164,7 @@ namespace MartingaleBot
         {
             this.BeginInvoke(new Action(() =>
             {
+                updateLabels();
 
                 string betText;
 
@@ -184,17 +185,17 @@ namespace MartingaleBot
                     if (betStreak > 0)
                     {
                         checkIfWon();
-                        updateLabels();
+                        checkStopCredits();
                     }
 
                     if (stopNext == true && betStreak == 0)
                     {
                         timer.Stop();
-                        updateLabels();
                         startButton.Enabled = true;
                         colourCombo.Enabled = true;
-                        startAmountTextbox.Enabled = true;
+                        startAmountNumeric.Enabled = true;
                         stopCheckbox.Checked = false;
+                        stopCreditsCheckbox.Checked = false;
                     }
                     else {
 
@@ -237,7 +238,7 @@ namespace MartingaleBot
             int bet = 0;
             if (betStreak == 0)
             {
-                bet = Int32.Parse(startAmountTextbox.Text);
+                bet = (int)startAmountNumeric.Value;
             }
             else {
                 bet = previousBet * 2;
@@ -300,7 +301,31 @@ namespace MartingaleBot
 
         private void setStopNext(object sender, System.EventArgs e)
         {
+            
+
+            if (sender == stopCheckbox && stopCheckbox.Checked) {
+                stopCreditsCheckbox.Checked = false;
+            }
+            else if(sender == stopCreditsCheckbox && stopCreditsCheckbox.Checked)
+            {
+                stopCheckbox.Checked = false;
+            }
+
             stopNext = stopCheckbox.Checked;
+        }
+
+        
+
+        private void checkStopCredits()
+        {
+            if (stopCreditsCheckbox.Checked && !stopNext)
+            {
+                int requestedAmount = (int)stopNumeric.Value;
+                if (credits >= requestedAmount)
+                {
+                    stopNext = true;
+                }
+            }
         }
     }
 }
