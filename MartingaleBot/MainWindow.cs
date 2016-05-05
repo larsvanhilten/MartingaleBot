@@ -47,6 +47,7 @@ namespace MartingaleBot
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            string[] args = Environment.GetCommandLineArgs();
             browser.Navigate("https://www.csgohill.com/");
             colourCombo.SelectedIndex = 0;
         }
@@ -190,12 +191,18 @@ namespace MartingaleBot
 
                     if (stopNext == true && betStreak == 0)
                     {
+                        if (stopCreditsCheckbox.Checked)
+                        {
+                            notifyIcon.ShowBalloonTip(5000, "Martingale bot", "Credits reached", ToolTipIcon.None);
+                        }
                         timer.Stop();
                         startButton.Enabled = true;
                         colourCombo.Enabled = true;
                         startAmountNumeric.Enabled = true;
                         stopCheckbox.Checked = false;
                         stopCreditsCheckbox.Checked = false;
+
+
                     }
                     else {
 
@@ -327,5 +334,23 @@ namespace MartingaleBot
                 }
             }
         }
+
+        private void formResize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                notifyIcon.Visible = true;
+                this.Hide();
+            }
+        }
+
+        private void iconDoubleClick(object sender, MouseEventArgs e)
+        {
+            
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            notifyIcon.Visible = false;
+        }
+
     }
 }

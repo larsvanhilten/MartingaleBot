@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.browser = new Gecko.GeckoWebBrowser();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.stopCreditsCheckbox = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.stopNumeric = new System.Windows.Forms.NumericUpDown();
             this.startAmountNumeric = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.colourCombo = new System.Windows.Forms.ComboBox();
@@ -41,13 +46,11 @@
             this.creditsLabel = new System.Windows.Forms.Label();
             this.userLabel = new System.Windows.Forms.Label();
             this.startButton = new System.Windows.Forms.Button();
-            this.stopNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.stopCheckbox = new System.Windows.Forms.CheckBox();
-            this.stopCreditsCheckbox = new System.Windows.Forms.CheckBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.startAmountNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stopNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startAmountNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // browser
@@ -82,6 +85,49 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Controls";
+            // 
+            // stopCreditsCheckbox
+            // 
+            this.stopCreditsCheckbox.AutoSize = true;
+            this.stopCreditsCheckbox.Location = new System.Drawing.Point(6, 327);
+            this.stopCreditsCheckbox.Name = "stopCreditsCheckbox";
+            this.stopCreditsCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.stopCreditsCheckbox.TabIndex = 15;
+            this.stopCreditsCheckbox.UseVisualStyleBackColor = true;
+            this.stopCreditsCheckbox.CheckedChanged += new System.EventHandler(this.setStopNext);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Ubuntu", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 305);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(133, 17);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Stop after credits > :";
+            // 
+            // stopNumeric
+            // 
+            this.stopNumeric.Font = new System.Drawing.Font("Ubuntu", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stopNumeric.Location = new System.Drawing.Point(28, 324);
+            this.stopNumeric.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.stopNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.stopNumeric.Name = "stopNumeric";
+            this.stopNumeric.Size = new System.Drawing.Size(114, 22);
+            this.stopNumeric.TabIndex = 13;
+            this.stopNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // startAmountNumeric
             // 
@@ -210,39 +256,6 @@
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
-            // stopNumeric
-            // 
-            this.stopNumeric.Font = new System.Drawing.Font("Ubuntu", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stopNumeric.Location = new System.Drawing.Point(28, 324);
-            this.stopNumeric.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.stopNumeric.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.stopNumeric.Name = "stopNumeric";
-            this.stopNumeric.Size = new System.Drawing.Size(114, 22);
-            this.stopNumeric.TabIndex = 13;
-            this.stopNumeric.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Ubuntu", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 305);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 17);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Stop after credits > :";
-            // 
             // stopCheckbox
             // 
             this.stopCheckbox.AutoSize = true;
@@ -255,15 +268,12 @@
             this.stopCheckbox.UseVisualStyleBackColor = true;
             this.stopCheckbox.CheckedChanged += new System.EventHandler(this.setStopNext);
             // 
-            // stopCreditsCheckbox
+            // notifyIcon
             // 
-            this.stopCreditsCheckbox.AutoSize = true;
-            this.stopCreditsCheckbox.Location = new System.Drawing.Point(6, 327);
-            this.stopCreditsCheckbox.Name = "stopCreditsCheckbox";
-            this.stopCreditsCheckbox.Size = new System.Drawing.Size(15, 14);
-            this.stopCreditsCheckbox.TabIndex = 15;
-            this.stopCreditsCheckbox.UseVisualStyleBackColor = true;
-            this.stopCreditsCheckbox.CheckedChanged += new System.EventHandler(this.setStopNext);
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Martingale bot";
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.iconDoubleClick);
             // 
             // MainWindow
             // 
@@ -273,14 +283,17 @@
             this.ClientSize = new System.Drawing.Size(784, 412);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.browser);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.ShowIcon = false;
             this.Text = "Martingale Bot - Lemondragon";
             this.Load += new System.EventHandler(this.MainWindow_Load);
+            this.Resize += new System.EventHandler(this.formResize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.startAmountNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stopNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startAmountNumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -304,6 +317,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox stopCreditsCheckbox;
         private System.Windows.Forms.CheckBox stopCheckbox;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 
